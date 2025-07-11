@@ -1,5 +1,6 @@
 from dataclasses import field
 
+from django.contrib.auth.models import User
 from django.utils import timezone
 
 from django.db import models
@@ -14,6 +15,11 @@ class Post(models.Model):
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250)
     content = models.TextField()
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='blog_posts',
+    )
     statue = models.CharField(
         max_length=2, # DF or PB
         choices=Status.choices,
